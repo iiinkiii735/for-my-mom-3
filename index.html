@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff0f5;
+        overflow: hidden;
+        font-family: "Comic Sans MS", cursive;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        max-width: 600px;
+      }
+
+      .message {
+        font-size: 2.5em;
+        color: #ff69b4;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin: 20px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.5s;
+      }
+
+      .message.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      button {
+        padding: 20px 40px;
+        font-size: 1.8em;
+        background: #ff85c1;
+        border: none;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 133, 193, 0.4);
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        background: #ff6eb4;
+      }
+
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 24px;
+        animation: float 4s linear infinite;
+        opacity: 0;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+      <div id="message" class="message"></div>
+      <button onclick="showMessage()">Нажми меня, мамуля! 💖</button>
+    </div>
+
+    <script>
+      const messages = [
+        "Мамочка, ты — мой ангел-хранитель! Спасибо за всё, что ты для меня делаешь! 🌸",
+        "Ты самая добрая, мудрая и красивая мама на свете! Я тебя обожаю! 💐",
+        "Спасибо, что всегда верила в меня! Я стал таким благодаря тебе! 🌟",
+        "Твоя улыбка — как солнышко в пасмурный день! Люблю тебя бесконечно! ☀️",
+        "Ты — мой главный пример в жизни! Спасибо за твоё бесконечное терпение! 🥰",
+        "Мамуля, ты сделала мою жизнь настоящей сказкой! Я твой вечный малыш! 🧸",
+      ];
+
+      function createHearts() {
+        const heartsContainer = document.getElementById("hearts");
+        for (let i = 0; i < 20; i++) {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerHTML = "💖";
+          heart.style.left = Math.random() * 100 + "%";
+          heart.style.animationDelay = Math.random() * 2 + "s";
+          heartsContainer.appendChild(heart);
+        }
+      }
+
+      function showMessage() {
+        const messageElement = document.getElementById("message");
+        messageElement.classList.remove("visible");
+
+        setTimeout(() => {
+          messageElement.textContent =
+            messages[Math.floor(Math.random() * messages.length)];
+          messageElement.classList.add("visible");
+        }, 300);
+
+        createHearts();
+      }
+
+      window.onload = createHearts;
+    </script>
+  </body>
+</html>
